@@ -1,0 +1,41 @@
+---
+name: Release
+
+on:
+  push:
+    tags:
+      - '[0-9]+'     # Matches: 1, 2, 3, 10, 100, etc.
+      - '[0-9]+.[0-9]+'  # Matches: 1.1, 2.0, etc. (for backward compatibility)
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Update version in facturascripts.ini
+        run: sed -i "s/^version.*/version = ${{ steps.version.outputs.VERSION }}/" facturascripts.ini
+
+      - name: Create ZIP using git archive
+        run: |
+          # Create a temporary commit with the updated version
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add facturascripts.ini
+          git commit -m "Update version to ${{ steps.version.outputs.VERSION }}" || true
+          # Create the ZIP with the updated version
+          git archive --format=zip --prefix=QuickCreate/ HEAD -o QuickCreate-${{ steps.version.outputs.VERSION }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: QuickCreate-${{ steps.version.outputs.VERSION }}.zip
+          generate_release_notes: true
