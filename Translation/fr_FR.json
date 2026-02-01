@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Raccourcis clavier",
+    "shortcut-new-win": "Alt+N : Cr\u00e9er un nouvel enregistrement",
+    "shortcut-new-mac": "\u2325N : Cr\u00e9er un nouvel enregistrement",
+    "quick-search": "Recherche rapide...",
+    "command-palette-placeholder": "Saisissez une commande ou recherchez...",
+    "navigation": "Navigation",
+    "quick-create": "Cr\u00e9ation rapide",
+    "settings": "Param\u00e8tres",
+    "actions": "Actions",
+    "new": "Nouveau",
+    "other": "Autres",
+    "to-navigate": "pour naviguer",
+    "to-select": "pour s\u00e9lectionner",
+    "to-close": "pour fermer",
+    "no-results": "Aucun r\u00e9sultat trouv\u00e9"
+}

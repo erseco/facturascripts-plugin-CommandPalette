@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Atalhos de teclado",
+    "shortcut-new-win": "Alt+N: Criar novo registro",
+    "shortcut-new-mac": "\u2325N: Criar novo registro",
+    "quick-search": "Pesquisa r\u00e1pida...",
+    "command-palette-placeholder": "Digite um comando ou pesquise...",
+    "navigation": "Navega\u00e7\u00e3o",
+    "quick-create": "Cria\u00e7\u00e3o r\u00e1pida",
+    "settings": "Configura\u00e7\u00f5es",
+    "actions": "A\u00e7\u00f5es",
+    "new": "Novo",
+    "other": "Outros",
+    "to-navigate": "para navegar",
+    "to-select": "para selecionar",
+    "to-close": "para fechar",
+    "no-results": "Nenhum resultado encontrado"
+}

@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Teklatu-lasterbideak",
+    "shortcut-new-win": "Alt+N: Erregistro berria sortu",
+    "shortcut-new-mac": "\u2325N: Erregistro berria sortu",
+    "quick-search": "Bilaketa azkarra...",
+    "command-palette-placeholder": "Idatzi komando bat edo bilatu...",
+    "navigation": "Nabigazioa",
+    "quick-create": "Sorkuntza azkarra",
+    "settings": "Ezarpenak",
+    "actions": "Ekintzak",
+    "new": "Berria",
+    "other": "Beste batzuk",
+    "to-navigate": "nabigatzeko",
+    "to-select": "hautatzeko",
+    "to-close": "ixteko",
+    "no-results": "Ez da emaitzarik aurkitu"
+}

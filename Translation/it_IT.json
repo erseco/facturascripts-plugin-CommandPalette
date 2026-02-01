@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Scorciatoie da tastiera",
+    "shortcut-new-win": "Alt+N: Crea nuovo record",
+    "shortcut-new-mac": "\u2325N: Crea nuovo record",
+    "quick-search": "Ricerca rapida...",
+    "command-palette-placeholder": "Digita un comando o cerca...",
+    "navigation": "Navigazione",
+    "quick-create": "Creazione rapida",
+    "settings": "Impostazioni",
+    "actions": "Azioni",
+    "new": "Nuovo",
+    "other": "Altro",
+    "to-navigate": "per navigare",
+    "to-select": "per selezionare",
+    "to-close": "per chiudere",
+    "no-results": "Nessun risultato trovato"
+}

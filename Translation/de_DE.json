@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Tastenk\u00fcrzel",
+    "shortcut-new-win": "Alt+N: Neuen Datensatz erstellen",
+    "shortcut-new-mac": "\u2325N: Neuen Datensatz erstellen",
+    "quick-search": "Schnellsuche...",
+    "command-palette-placeholder": "Befehl eingeben oder suchen...",
+    "navigation": "Navigation",
+    "quick-create": "Schnell erstellen",
+    "settings": "Einstellungen",
+    "actions": "Aktionen",
+    "new": "Neu",
+    "other": "Andere",
+    "to-navigate": "zum Navigieren",
+    "to-select": "zum Ausw\u00e4hlen",
+    "to-close": "zum Schlie\u00dfen",
+    "no-results": "Keine Ergebnisse gefunden"
+}

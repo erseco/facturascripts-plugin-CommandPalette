@@ -1,95 +1,33 @@
-# CommandPalette Plugin for FacturaScripts
+# CommandPalette para FacturaScripts
 
-A FacturaScripts plugin that adds a Command Palette (similar to VS Code, GitHub, or Cloudflare) for quick navigation and actions.
+Paleta de comandos moderna para FacturaScripts, inspirada en VS Code, GitHub y Cloudflare. Navega rápidamente por toda la aplicación usando el teclado.
 
-## Features
+<p align="center">
+  <img src=".github/screenshot.png" alt="CommandPalette Screenshot" width="600">
+</p>
 
-- **Command Palette**: Press `Ctrl+K` (Windows/Linux) or `Cmd+K` (Mac) to open
-- **Quick Search Button**: Visual button in the navbar to open the palette
-- **Fuzzy Search**: Find menu items, pages, and actions quickly
-- **Quick Create**: Generate "New X" commands for all List controllers
-- **Keyboard Navigation**: Use arrow keys, Enter, and Escape
-- **Alt+N Shortcut**: Quick shortcut to create new records from any List/Edit page
+## Características
 
-## Keyboard Shortcuts
+- **Paleta de comandos**: Pulsa `Ctrl+K` (Windows/Linux) o `Cmd+K` (Mac) para abrir el buscador
+- **Búsqueda difusa**: Encuentra opciones escribiendo solo unas letras
+- **Creación rápida**: Comandos automáticos "Nuevo Producto", "Nuevo Cliente", etc.
+- **Atajos de teclado**: `Alt+N` para crear registro, `Alt+S` para guardar
+- **Navegación con teclado**: Flechas arriba/abajo, Enter para seleccionar, Escape para cerrar
 
-| Action | Windows/Linux | Mac |
+## Atajos de teclado
+
+| Acción | Windows/Linux | Mac |
 |--------|---------------|-----|
-| Open Command Palette | `Ctrl+K` | `Cmd+K` |
-| Create new record | `Alt+N` | `Option+N` |
-| Save | `Alt+S` | `Option+S` |
-| Navigate results | `Arrow Up/Down` | `Arrow Up/Down` |
-| Select item | `Enter` | `Enter` |
-| Close palette | `Escape` | `Escape` |
+| Abrir paleta | `Ctrl+K` | `Cmd+K` |
+| Nuevo registro | `Alt+N` | `Option+N` |
+| Guardar | `Alt+S` | `Option+S` |
 
-## Command Categories
+## Instalación
 
-The Command Palette automatically discovers and organizes commands into categories:
+1. Descarga el ZIP desde [Releases](../../releases/latest)
+2. Ve a **Panel de Admin > Plugins** en FacturaScripts
+3. Sube el archivo ZIP y activa el plugin
 
-- **Navigation**: All menu items from the navbar
-- **Quick Create**: "New Product", "New Customer", etc. (auto-generated from List controllers)
-- **Settings**: EditSettings, AdminPlugins
-- **Actions**: Dashboard, MegaSearch
+## Licencia
 
-## Screenshots
-
-When you press `Ctrl+K` / `Cmd+K`, a modal appears:
-
-```
-+--------------------------------------------------+
-| Search icon  Type a command or search...    [ESC] |
-+--------------------------------------------------+
-| NAVIGATION                                        |
-| [icon] Products                        Warehouse  |
-| [icon] Customers                          Sales   |
-| [icon] Invoices                           Sales   |
-|                                                   |
-| QUICK CREATE                                      |
-| [+] New Product                                   |
-| [+] New Customer                                  |
-+--------------------------------------------------+
-| [Up][Down] to navigate  [Enter] to select  [Esc] |
-+--------------------------------------------------+
-```
-
-## Requirements
-
-- FacturaScripts 2025 or later
-- PHP 8.2+
-
-## Installation
-
-1. Download the latest `CommandPalette-X.zip` from [GitHub Releases](../../releases/latest)
-2. Go to **Admin Panel > Plugins** in FacturaScripts
-3. Click **Upload plugin** and select the downloaded ZIP file
-4. Enable the plugin
-
-> **Note**: Do not download the repository directly as a ZIP from GitHub's "Code" button. The release ZIP is specifically packaged for FacturaScripts and excludes development files.
-
-## License
-
-This plugin is released under the GNU LGPLv3 license. See [LICENSE](LICENSE) for details.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-### Development Setup
-
-```bash
-# Clone the repository
-git clone git@github.com:erseco/facturascripts-plugin-CommandPalette.git
-cd facturascripts-plugin-CommandPalette
-
-# Start development environment with Docker
-make up
-
-# Open http://localhost:8080 (login: admin / admin)
-
-# Run linting
-make lint
-make lint-js
-
-# Run tests
-make test
-```
+LGPL-3.0. Ver [LICENSE](LICENSE) para más detalles.

@@ -1,0 +1,17 @@
+{
+    "keyboard-shortcuts": "Dreceres de teclat",
+    "shortcut-new-win": "Alt+N: Crear un registre nou",
+    "shortcut-new-mac": "\u2325N: Crear un registre nou",
+    "quick-search": "Cerca r\u00e0pida...",
+    "command-palette-placeholder": "Escriu una ordre o cerca...",
+    "navigation": "Navegaci\u00f3",
+    "quick-create": "Creaci\u00f3 r\u00e0pida",
+    "settings": "Configuraci\u00f3",
+    "actions": "Accions",
+    "new": "Nou",
+    "other": "Altres",
+    "to-navigate": "per navegar",
+    "to-select": "per seleccionar",
+    "to-close": "per tancar",
+    "no-results": "No s'han trobat resultats"
+}
