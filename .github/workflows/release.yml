@@ -32,10 +32,10 @@ jobs:
           git add facturascripts.ini
           git commit -m "Update version to ${{ steps.version.outputs.VERSION }}" || true
           # Create the ZIP with the updated version
-          git archive --format=zip --prefix=KeyboardShortcuts/ HEAD -o KeyboardShortcuts-${{ steps.version.outputs.VERSION }}.zip
+          git archive --format=zip --prefix=CommandPalette/ HEAD -o CommandPalette-${{ steps.version.outputs.VERSION }}.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: KeyboardShortcuts-${{ steps.version.outputs.VERSION }}.zip
+          files: CommandPalette-${{ steps.version.outputs.VERSION }}.zip
           generate_release_notes: true

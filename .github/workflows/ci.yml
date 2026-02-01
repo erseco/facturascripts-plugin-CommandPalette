@@ -46,11 +46,11 @@ jobs:
       - name: Copy plugin files to container
         run: |
           echo "📦 Copying plugin files to container..."
-          docker compose exec -T facturascripts mkdir -p /var/www/html/Plugins/KeyboardShortcuts
-          docker cp . facturascripts-plugin-keyboardshortcuts-facturascripts-1:/var/www/html/Plugins/KeyboardShortcuts/
+          docker compose exec -T facturascripts mkdir -p /var/www/html/Plugins/CommandPalette
+          docker cp . facturascripts-plugin-commandpalette-facturascripts-1:/var/www/html/Plugins/CommandPalette/
 
           echo "📋 Fixing permissions..."
-          docker compose exec -T facturascripts chown -R nobody:nobody /var/www/html/Plugins/KeyboardShortcuts || true
+          docker compose exec -T facturascripts chown -R nobody:nobody /var/www/html/Plugins/CommandPalette || true
 
           echo "✅ Plugin files copied successfully"
 
@@ -125,8 +125,8 @@ jobs:
 
       - name: Install plugin
         run: |
-          mkdir -p facturascripts/Plugins/KeyboardShortcuts
-          cp -r plugin/* facturascripts/Plugins/KeyboardShortcuts/
+          mkdir -p facturascripts/Plugins/CommandPalette
+          cp -r plugin/* facturascripts/Plugins/CommandPalette/
 
       - name: Setup FacturaScripts
         working-directory: facturascripts
