@@ -21,30 +21,40 @@ Login with:
 
 ## 3. Enable the Plugin
 
-Go to **Admin Panel → Plugins** and enable **PluginTemplate**.
+Go to **Admin Panel > Plugins** and enable **CommandPalette**.
 
 Or run:
 ```bash
 make enable-plugin
 ```
 
-## 4. Access the Example Pages
+## 4. Use the Command Palette
 
-After enabling the plugin, you'll see new menu items:
+After enabling the plugin, you can use these shortcuts:
 
-- **Example Controller** - A basic controller example
-- **Example Models** - A list view with CRUD operations
+| Action | Windows/Linux | Mac |
+|--------|---------------|-----|
+| Open Command Palette | `Ctrl+K` | `Cmd+K` |
+| Create new record | `Alt+N` | `Option+N` |
+| Save | `Alt+S` | `Option+S` |
+| Navigate results | `Arrow Up/Down` | `Arrow Up/Down` |
+| Select item | `Enter` | `Enter` |
+| Close palette | `Escape` | `Escape` |
 
-## 5. Make Changes
+### Examples
 
-Edit any file in the plugin directory. Changes are reflected immediately.
+1. Press `Ctrl+K` (or `Cmd+K` on Mac) to open the palette
+2. Type "prod" to filter to Products
+3. Use arrow keys to navigate
+4. Press `Enter` to go to that page
 
-After changing models or controllers, rebuild:
-```bash
-make rebuild
-```
+Or use `Alt+N` on any List page to quickly create a new record!
 
-## 6. Stop FacturaScripts
+### Navbar Button
+
+Look for the "Quick search..." button in the navbar - click it to open the Command Palette.
+
+## 5. Stop FacturaScripts
 
 ```bash
 make down

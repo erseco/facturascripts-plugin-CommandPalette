@@ -10,15 +10,12 @@
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>
-        <testsuite name="QuickCreate Plugin Tests">
+        <testsuite name="KeyboardShortcuts Plugin Tests">
             <directory>Test/main</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">Controller</directory>
-            <directory suffix=".php">Extension</directory>
-            <directory suffix=".php">Trait</directory>
             <file>Init.php</file>
         </include>
     </source>

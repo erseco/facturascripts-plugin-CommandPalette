@@ -1,14 +1,56 @@
-# QuickCreate Plugin for FacturaScripts
+# CommandPalette Plugin for FacturaScripts
 
-A FacturaScripts plugin that adds "+" buttons next to autocomplete fields, allowing you to create products and accounting accounts without leaving the current form.
+A FacturaScripts plugin that adds a Command Palette (similar to VS Code, GitHub, or Cloudflare) for quick navigation and actions.
 
 ## Features
 
-- **Quick Product Creation**: Add products directly from sales/purchase document lines
-- **Quick Account Creation**: Add subcuentas directly from accounting entries (asientos)
-- **Permission-Aware**: Buttons only appear for users with appropriate permissions
-- **Dynamic Content Support**: Works with dynamically added document lines
-- **Bootstrap 5 Compatible**: Uses native Bootstrap 5 modals
+- **Command Palette**: Press `Ctrl+K` (Windows/Linux) or `Cmd+K` (Mac) to open
+- **Quick Search Button**: Visual button in the navbar to open the palette
+- **Fuzzy Search**: Find menu items, pages, and actions quickly
+- **Quick Create**: Generate "New X" commands for all List controllers
+- **Keyboard Navigation**: Use arrow keys, Enter, and Escape
+- **Alt+N Shortcut**: Quick shortcut to create new records from any List/Edit page
+
+## Keyboard Shortcuts
+
+| Action | Windows/Linux | Mac |
+|--------|---------------|-----|
+| Open Command Palette | `Ctrl+K` | `Cmd+K` |
+| Create new record | `Alt+N` | `Option+N` |
+| Save | `Alt+S` | `Option+S` |
+| Navigate results | `Arrow Up/Down` | `Arrow Up/Down` |
+| Select item | `Enter` | `Enter` |
+| Close palette | `Escape` | `Escape` |
+
+## Command Categories
+
+The Command Palette automatically discovers and organizes commands into categories:
+
+- **Navigation**: All menu items from the navbar
+- **Quick Create**: "New Product", "New Customer", etc. (auto-generated from List controllers)
+- **Settings**: EditSettings, AdminPlugins
+- **Actions**: Dashboard, MegaSearch
+
+## Screenshots
+
+When you press `Ctrl+K` / `Cmd+K`, a modal appears:
+
+```
++--------------------------------------------------+
+| Search icon  Type a command or search...    [ESC] |
++--------------------------------------------------+
+| NAVIGATION                                        |
+| [icon] Products                        Warehouse  |
+| [icon] Customers                          Sales   |
+| [icon] Invoices                           Sales   |
+|                                                   |
+| QUICK CREATE                                      |
+| [+] New Product                                   |
+| [+] New Customer                                  |
++--------------------------------------------------+
+| [Up][Down] to navigate  [Enter] to select  [Esc] |
++--------------------------------------------------+
+```
 
 ## Requirements
 
@@ -17,61 +59,12 @@ A FacturaScripts plugin that adds "+" buttons next to autocomplete fields, allow
 
 ## Installation
 
-1. Download the latest `QuickCreate-X.X.X.zip` from [GitHub Releases](../../releases/latest)
-2. Go to **Admin Panel → Plugins** in FacturaScripts
+1. Download the latest `CommandPalette-X.zip` from [GitHub Releases](../../releases/latest)
+2. Go to **Admin Panel > Plugins** in FacturaScripts
 3. Click **Upload plugin** and select the downloaded ZIP file
 4. Enable the plugin
 
 > **Note**: Do not download the repository directly as a ZIP from GitHub's "Code" button. The release ZIP is specifically packaged for FacturaScripts and excludes development files.
-
-## Usage
-
-### Products
-
-When editing sales or purchase documents (quotes, orders, delivery notes, invoices), you'll see a "+" button next to the product reference field. Click it to:
-
-1. Enter product reference (required)
-2. Enter description (optional)
-3. Enter price (optional)
-4. Click Save
-
-The new product is created and automatically selected in the document line.
-
-### Accounting Accounts
-
-When editing accounting entries (asientos), you'll see a "+" button next to subcuenta fields. Click it to:
-
-1. Enter account code (must match the exercise's required length)
-2. Enter description (optional, defaults to parent account description)
-3. Click Save
-
-The new subcuenta is created and automatically selected in the entry line.
-
-## Supported Controllers
-
-### Sales Documents
-- EditPresupuestoCliente (Customer Quotes)
-- EditPedidoCliente (Customer Orders)
-- EditAlbaranCliente (Customer Delivery Notes)
-- EditFacturaCliente (Customer Invoices)
-
-### Purchase Documents
-- EditPresupuestoProveedor (Supplier Quotes)
-- EditPedidoProveedor (Supplier Orders)
-- EditAlbaranProveedor (Supplier Delivery Notes)
-- EditFacturaProveedor (Supplier Invoices)
-
-### Accounting
-- EditAsiento (Journal Entries)
-
-## Permissions
-
-The plugin respects FacturaScripts permissions:
-
-- **EditProducto**: Required to see the product quick-create button
-- **EditCuenta**: Required to see the account quick-create button
-
-Users without these permissions will not see the "+" buttons.
 
 ## License
 
@@ -85,17 +78,18 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 ```bash
 # Clone the repository
-git clone https://github.com/erseco/facturascripts-plugin-QuickCreate.git
-cd facturascripts-plugin-QuickCreate
+git clone git@github.com:erseco/facturascripts-plugin-CommandPalette.git
+cd facturascripts-plugin-CommandPalette
 
 # Start development environment with Docker
 make up
 
 # Open http://localhost:8080 (login: admin / admin)
 
+# Run linting
+make lint
+make lint-js
+
 # Run tests
 make test
-
-# Create a release package
-make package VERSION=1.0.0
 ```

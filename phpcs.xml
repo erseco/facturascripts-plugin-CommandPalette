@@ -3,9 +3,6 @@
     <description>Coding standard for FacturaScripts plugins based on PSR-12</description>
 
     <!-- Files to check (relative to plugin root) -->
-    <file>Controller</file>
-    <file>Extension</file>
-    <file>Trait</file>
     <file>Test/main</file>
     <file>Init.php</file>
 

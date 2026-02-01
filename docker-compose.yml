@@ -39,7 +39,7 @@ services:
     volumes:
       - facturascripts_data:/var/www/html/volume
       # Mount the plugin directory
-      - ./:/var/www/html/Plugins/QuickCreate
+      - ./:/var/www/html/Plugins/CommandPalette
     depends_on:
       mariadb:
         condition: service_healthy

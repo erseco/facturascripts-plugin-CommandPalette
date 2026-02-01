@@ -1,58 +1,49 @@
-# CLAUDE.md - Development Guide for QuickCreate Plugin
+# CLAUDE.md - Development Guide for CommandPalette Plugin
 
 This document contains the conventions, coding styles, and best practices for developing FacturaScripts plugins.
 
 ## Plugin Structure
 
 ```
-QuickCreate/
-├── Controller/           # Plugin controllers
-├── Extension/            # Extensions for existing controllers
-│   └── Controller/
-├── Trait/                # Traits to share functionality
-├── Model/                # Models (if any)
+CommandPalette/
 ├── Assets/
 │   ├── CSS/
+│   │   └── CommandPalette.css
 │   └── JS/
-├── View/                 # Twig templates
-├── XMLView/              # XML views for forms/listings
-├── Translation/          # JSON translation files
-├── Init.php              # Initialization class
-└── facturascripts.ini    # Plugin metadata
+│       └── CommandPalette.js
+├── Extension/
+│   └── View/
+│       └── MenuTemplate_JsFooter_100.html.twig
+├── Translation/
+│   ├── en_EN.json
+│   └── es_ES.json
+├── Test/
+│   └── main/
+│       └── InitTest.php
+├── Init.php
+├── README.md
+├── QUICKSTART.md
+├── LICENSE
+└── facturascripts.ini
 ```
 
 ## Naming Conventions
 
 | Element | Convention | Example |
 |---------|------------|---------|
-| Classes | PascalCase | `QuickCreateAction` |
-| Methods | camelCase | `getPageData()` |
-| Properties | camelCase | `$codfamilia` |
+| Classes | PascalCase | `Init` |
+| Methods | camelCase | `init()` |
+| Properties | camelCase | `$initialized` |
 | Constants | UPPER_SNAKE_CASE | `const MAX_ITEMS = 50` |
-| PHP Files | PascalCase.php | `EditProducto.php` |
-| Translation Keys | kebab-case | `quick-create-product` |
+| PHP Files | PascalCase.php | `Init.php` |
+| Translation Keys | kebab-case | `command-palette` |
 
 ### Namespaces
 
 ```php
-// Controllers
-namespace FacturaScripts\Plugins\QuickCreate\Controller;
-
-// Extensions
-namespace FacturaScripts\Plugins\QuickCreate\Extension\Controller;
-
-// Traits
-namespace FacturaScripts\Plugins\QuickCreate\Trait;
-
-// Models
-namespace FacturaScripts\Plugins\QuickCreate\Model;
+// Main plugin namespace
+namespace FacturaScripts\Plugins\CommandPalette;
 ```
-
-### Controller Prefixes
-
-- `EditXXX` - Entity editing (e.g.: `EditSerie`, `EditFacturaCliente`)
-- `ListXXX` - Entity listing (e.g.: `ListAlmacen`)
-- `ApiXXX` - API endpoints
 
 ## PHP Coding Style (PSR-12)
 
@@ -64,12 +55,12 @@ namespace FacturaScripts\Plugins\QuickCreate\Model;
 - **Strings:** Single quotes preferred
 - **Trailing comma:** In multiline arrays
 
-### Class Example
+### Init.php Example
 
 ```php
 <?php
 /**
- * This file is part of QuickCreate plugin for FacturaScripts
+ * This file is part of CommandPalette plugin for FacturaScripts
  * Copyright (C) 2026 Ernesto Serrano <info@ernesto.es>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -78,287 +69,45 @@ namespace FacturaScripts\Plugins\QuickCreate\Model;
  * License, or (at your option) any later version.
  */
 
-namespace FacturaScripts\Plugins\QuickCreate\Controller;
-
-use FacturaScripts\Core\Base\Controller;
-use FacturaScripts\Core\Tools;
-use Symfony\Component\HttpFoundation\Response;
-
-class QuickCreateAction extends Controller
-{
-    public function getPageData(): array
-    {
-        $data = parent::getPageData();
-        $data['menu'] = 'admin';
-        $data['title'] = 'QuickCreate API';
-        $data['showonmenu'] = false;
-        return $data;
-    }
-
-    public function privateCore(&$response, $user, $permissions): void
-    {
-        parent::privateCore($response, $user, $permissions);
-        $this->setTemplate(false);
-        $this->response->headers->set('Content-Type', 'application/json');
-    }
-}
-```
-
-### DocBlocks
-
-```php
-/**
- * Brief class description.
- *
- * @author Name <email@example.com>
- */
-class MyClass
-{
-    /**
-     * Property description.
-     *
-     * @var string
-     */
-    public $myProperty;
-
-    /**
-     * Method description.
-     *
-     * @param string $param Parameter description
-     * @return bool Return description
-     */
-    public function myMethod(string $param): bool
-    {
-        return true;
-    }
-}
-```
-
-## Controllers
-
-### EditController (Editing)
-
-```php
-class EditMyModel extends EditController
-{
-    public function getModelClassName(): string
-    {
-        return 'MyModel';
-    }
-
-    public function getPageData(): array
-    {
-        $data = parent::getPageData();
-        $data['menu'] = 'admin';
-        $data['title'] = 'my-model';
-        $data['icon'] = 'fa-solid fa-cog';
-        return $data;
-    }
-
-    protected function createViews(): void
-    {
-        parent::createViews();
-        // Create additional views
-    }
-
-    protected function loadData($viewName, $view): void
-    {
-        parent::loadData($viewName, $view);
-        // Load additional data
-    }
-}
-```
-
-### JSON/API Controller
-
-```php
-class MyApiController extends Controller
-{
-    public function privateCore(&$response, $user, $permissions): void
-    {
-        parent::privateCore($response, $user, $permissions);
-        $this->setTemplate(false);
-        $this->response->headers->set('Content-Type', 'application/json');
-
-        $action = $this->request->get('action', '');
-        match ($action) {
-            'create' => $this->createAction(),
-            'delete' => $this->deleteAction(),
-            default => $this->errorResponse('invalid-action'),
-        };
-    }
-
-    protected function jsonResponse(array $data, int $status = 200): void
-    {
-        $this->response->setStatusCode($status);
-        $this->response->setContent(json_encode($data));
-    }
-
-    protected function errorResponse(string $message, int $status = 400): void
-    {
-        $this->jsonResponse([
-            'ok' => false,
-            'message' => Tools::lang()->trans($message),
-        ], $status);
-    }
-}
-```
-
-## Controller Extensions
-
-### Pattern with Trait
-
-```php
-// Extension/Controller/EditPresupuestoCliente.php
-namespace FacturaScripts\Plugins\QuickCreate\Extension\Controller;
-
-use FacturaScripts\Plugins\QuickCreate\Trait\QuickCreateTrait;
-
-class EditPresupuestoCliente
-{
-    use QuickCreateTrait;
-}
-```
-
-```php
-// Trait/QuickCreateTrait.php
-namespace FacturaScripts\Plugins\QuickCreate\Trait;
-
-use Closure;
-use FacturaScripts\Core\Base\AjaxForms\SalesHeaderHTML;
-use FacturaScripts\Core\Tools;
-
-trait QuickCreateTrait
-{
-    public function createViews(): Closure
-    {
-        return function () {
-            // $this refers to the original controller
-            if ($this->user->can('EditProducto')) {
-                AssetManager::addJs(FS_ROUTE . '/Plugins/QuickCreate/Assets/JS/QuickCreate.js');
-            }
-        };
-    }
-}
-```
-
-### Registration in Init.php
-
-```php
-namespace FacturaScripts\Plugins\QuickCreate;
+namespace FacturaScripts\Plugins\CommandPalette;
 
 use FacturaScripts\Core\Template\InitClass;
 
+/**
+ * Plugin initialization class.
+ * JavaScript is loaded via Extension/View/MenuTemplate_JsFooter_100.html.twig
+ */
 class Init extends InitClass
 {
     public function init(): void
     {
-        $this->loadExtension(new Extension\Controller\EditPresupuestoCliente());
-        $this->loadExtension(new Extension\Controller\EditPedidoCliente());
+        // JS loaded via Extension/View template
     }
 
     public function update(): void
     {
-        // Migrations and updates
     }
 
     public function uninstall(): void
     {
-        // Cleanup on uninstall
     }
 }
 ```
 
-## Models
+### Extension/View Template
 
-```php
-namespace FacturaScripts\Plugins\QuickCreate\Model;
+To load JavaScript globally, use Extension/View templates with naming pattern:
+`{ParentTemplate}_{Position}_{Order}.html.twig`
 
-use FacturaScripts\Core\Model\Base\ModelClass;
-use FacturaScripts\Core\Model\Base\ModelTrait;
-
-class MyModel extends ModelClass
-{
-    use ModelTrait;
-
-    /** @var int */
-    public $id;
-
-    /** @var string */
-    public $codigo;
-
-    /** @var string */
-    public $descripcion;
-
-    public static function primaryColumn(): string
-    {
-        return 'id';
-    }
-
-    public static function tableName(): string
-    {
-        return 'my_table';
-    }
-}
+Example: `Extension/View/MenuTemplate_JsFooter_100.html.twig`
+```twig
+<link rel="stylesheet" href="{{ asset('Plugins/CommandPalette/Assets/CSS/CommandPalette.css') }}">
+<script src="{{ asset('Plugins/CommandPalette/Assets/JS/CommandPalette.js') }}"></script>
 ```
 
-## XML Views
-
-### EditView (Form)
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<view>
-    <columns>
-        <group name="data" numcolumns="12">
-            <column name="code" numcolumns="3" order="100">
-                <widget type="text" fieldname="codigo" maxlength="10" required="true"/>
-            </column>
-            <column name="description" numcolumns="9" order="110">
-                <widget type="text" fieldname="descripcion" maxlength="200"/>
-            </column>
-            <column name="active" numcolumns="2" order="120">
-                <widget type="checkbox" fieldname="activo"/>
-            </column>
-        </group>
-    </columns>
-</view>
-```
-
-### ListView (Listing)
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<view>
-    <columns>
-        <column name="code" order="100">
-            <widget type="text" fieldname="codigo"/>
-        </column>
-        <column name="description" order="110">
-            <widget type="text" fieldname="descripcion"/>
-        </column>
-    </columns>
-    <rows>
-        <row type="status">
-            <option color="danger" fieldname="activo">0</option>
-        </row>
-    </rows>
-</view>
-```
-
-### Available Widgets
-
-| Widget | Usage |
-|--------|-------|
-| `text` | Text field |
-| `number` | Numeric field |
-| `money` | Money field |
-| `checkbox` | Checkbox |
-| `select` | Dropdown |
-| `date` | Date |
-| `datetime` | Date and time |
-| `textarea` | Text area |
-| `autocomplete` | Autocomplete |
+Available positions for MenuTemplate:
+- `HeadFirst`, `CssBefore`, `CssAfter`, `JsHeadBefore`, `JsHeadAfter`, `HeadEnd`
+- `BodyFirst`, `JsFooter`, `BodyEnd`
 
 ## JavaScript
 
@@ -366,127 +115,34 @@ class MyModel extends ModelClass
 
 ```javascript
 /**
- * This file is part of QuickCreate plugin for FacturaScripts
+ * This file is part of CommandPalette plugin for FacturaScripts
  * Copyright (C) 2026 Ernesto Serrano <info@ernesto.es>
  */
 
-(function () {
+(() => {
     'use strict';
 
-    const MyPlugin = {
-        // Properties
-        initialized: false,
-
-        // Initialization
+    const CommandPalette = {
         init: function () {
-            if (this.initialized) return;
-            console.log('[MyPlugin] Initializing...');
+            this.createModal();
             this.bindEvents();
-            this.initialized = true;
         },
 
-        // Bind events
-        bindEvents: function () {
-            document.addEventListener('click', (e) => {
-                if (e.target.matches('.my-button')) {
-                    this.handleClick(e);
-                }
-            });
+        open: function () {
+            // Open palette
         },
 
-        // Handlers
-        handleClick: function (e) {
-            e.preventDefault();
-            // Logic
-        },
-
-        // AJAX requests
-        fetchData: async function (action, data) {
-            try {
-                const response = await fetch('QuickCreateAction', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        action: action,
-                        ...data,
-                    }),
-                });
-                return await response.json();
-            } catch (error) {
-                console.error('[MyPlugin] Error:', error);
-                return { ok: false, message: error.message };
-            }
-        },
-
-        // Translations
-        trans: function (key) {
-            if (window.i18n && typeof window.i18n.trans === 'function') {
-                return window.i18n.trans(key);
-            }
-            return key;
-        },
-
-        // Escape HTML
-        escapeHtml: function (text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        close: function () {
+            // Close palette
         }
     };
 
-    // Start
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => MyPlugin.init());
+        document.addEventListener('DOMContentLoaded', () => CommandPalette.init());
     } else {
-        MyPlugin.init();
+        CommandPalette.init();
     }
 })();
-```
-
-### Observing DOM Changes
-
-```javascript
-// To inject into dynamically loaded elements
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.addedNodes.length) {
-            this.injectButtons();
-        }
-    });
-});
-
-observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-});
-```
-
-## CSS
-
-```css
-/**
- * QuickCreate plugin styles
- */
-
-/* Use Bootstrap 5 variables */
-.quick-create-btn {
-    padding: 0.375rem 0.5rem;
-    background-color: var(--bs-secondary);
-    border-color: var(--bs-secondary);
-}
-
-.quick-create-btn:hover {
-    background-color: var(--bs-primary);
-    color: var(--bs-white);
-}
-
-/* Naming: .component-element */
-.quick-create-modal .modal-header {
-    background-color: var(--bs-light);
-    border-bottom: 1px solid var(--bs-border-color);
-}
 ```
 
 ## Translations
@@ -495,109 +151,21 @@ observer.observe(document.body, {
 
 ```json
 {
-    "translation-key": "Translated text",
-    "quick-create-product": "Quick create product",
-    "reference-required": "Reference is required",
-    "product-created": "Product created successfully"
+    "command-palette-placeholder": "Type a command or search...",
+    "quick-search": "Quick search..."
 }
 ```
 
 ### Usage in PHP
 
 ```php
-Tools::lang()->trans('quick-create-product')
-Tools::lang()->trans('items-count', ['%count%' => 5])
+Tools::lang()->trans('command-palette-placeholder')
 ```
 
 ### Usage in JavaScript
 
 ```javascript
-window.i18n.trans('quick-create-product')
-```
-
-### Usage in Twig
-
-```twig
-{{ i18n.trans('quick-create-product') }}
-```
-
-## Validation and Security
-
-### Check Permissions
-
-```php
-// In controller
-if (false === $this->user->can('EditProducto')) {
-    $this->response->setStatusCode(Response::HTTP_FORBIDDEN);
-    $this->response->setContent(json_encode([
-        'ok' => false,
-        'message' => Tools::lang()->trans('permission-denied'),
-    ]));
-    return;
-}
-```
-
-### Validate Input
-
-```php
-$referencia = $this->request->get('referencia', '');
-if (empty(trim($referencia))) {
-    $this->errorResponse('reference-required');
-    return;
-}
-
-// Sanitize
-$descripcion = Tools::noHtml($this->request->get('descripcion', ''));
-```
-
-### Safe Queries
-
-```php
-use FacturaScripts\Core\DataSrc\DataBaseWhere;
-
-$where = [
-    new DataBaseWhere('codfamilia', $codigo),
-    new DataBaseWhere('activo', true),
-];
-$items = $model->all($where, ['orden' => 'ASC'], 0, 50);
-```
-
-## Logging
-
-```php
-// Info
-Tools::log()->info('QuickCreate: Product created ' . $referencia);
-
-// Warning
-Tools::log()->warning('QuickCreate: Duplicate reference');
-
-// Error
-Tools::log()->error('QuickCreate ERROR: ' . $e->getMessage());
-```
-
-## Standard JSON Responses
-
-### Success
-
-```php
-$this->response->setContent(json_encode([
-    'ok' => true,
-    'message' => Tools::lang()->trans('record-saved'),
-    'data' => [
-        'id' => $model->id,
-        'codigo' => $model->codigo,
-    ],
-]));
-```
-
-### Error
-
-```php
-$this->response->setStatusCode(Response::HTTP_BAD_REQUEST);
-$this->response->setContent(json_encode([
-    'ok' => false,
-    'message' => Tools::lang()->trans('error-message'),
-]));
+commandPaletteTranslations['command-palette-placeholder']
 ```
 
 ## Useful Commands
@@ -605,24 +173,21 @@ $this->response->setContent(json_encode([
 ```bash
 # Check code style
 make lint
-# or
-vendor/bin/phpcs
 
 # Fix code style automatically
-make fix
-# or
-vendor/bin/php-cs-fixer fix
+make format
+
+# Check JavaScript code style
+make lint-js
+
+# Fix JavaScript code style
+make format-js
 
 # Run tests
 make test
-# or
-vendor/bin/phpunit
 ```
 
 ## References
 
 - **FacturaScripts Core:** `./facturascripts/Core/`
-- **Example Controllers:** `./facturascripts/Core/Controller/`
-- **Example Models:** `./facturascripts/Core/Model/`
-- **XML Views:** `./facturascripts/Core/XMLView/`
 - **Official Documentation:** https://facturascripts.com/documentacion

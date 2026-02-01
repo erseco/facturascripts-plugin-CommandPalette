@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of QuickCreate plugin for FacturaScripts.
+ * This file is part of CommandPalette plugin for FacturaScripts.
  * Copyright (C) 2026 Ernesto Serrano <info@ernesto.es>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -10,10 +10,10 @@
  * License, or (at your option) any later version.
  */
 
-namespace FacturaScripts\Test\Plugins\QuickCreate;
+namespace FacturaScripts\Test\Plugins\CommandPalette;
 
 use FacturaScripts\Core\Template\InitClass;
-use FacturaScripts\Plugins\QuickCreate\Init;
+use FacturaScripts\Plugins\CommandPalette\Init;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -49,7 +49,7 @@ class InitTest extends TestCase
     public function testCorrectNamespace(): void
     {
         $this->assertEquals(
-            'FacturaScripts\\Plugins\\QuickCreate',
+            'FacturaScripts\\Plugins\\CommandPalette',
             $this->reflection->getNamespaceName(),
             'Init should be in correct namespace'
         );
@@ -150,149 +150,12 @@ class InitTest extends TestCase
     }
 
     // =========================================================================
-    // EXTENSION CLASSES EXISTENCE TESTS
-    // =========================================================================
-
-    public function testClientDocumentExtensionsExist(): void
-    {
-        $clientExtensions = [
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaCliente',
-        ];
-
-        foreach ($clientExtensions as $extensionClass) {
-            $this->assertTrue(
-                class_exists($extensionClass),
-                "Client extension class {$extensionClass} should exist"
-            );
-        }
-    }
-
-    public function testSupplierDocumentExtensionsExist(): void
-    {
-        $supplierExtensions = [
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaProveedor',
-        ];
-
-        foreach ($supplierExtensions as $extensionClass) {
-            $this->assertTrue(
-                class_exists($extensionClass),
-                "Supplier extension class {$extensionClass} should exist"
-            );
-        }
-    }
-
-    public function testAccountingExtensionExists(): void
-    {
-        $this->assertTrue(
-            class_exists('FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAsiento'),
-            'EditAsiento extension should exist'
-        );
-    }
-
-    // =========================================================================
-    // EXTENSION CLASSES STRUCTURE TESTS
-    // =========================================================================
-
-    public function testAllExtensionsAreInstantiable(): void
-    {
-        $extensions = [
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAsiento',
-        ];
-
-        foreach ($extensions as $extensionClass) {
-            $reflection = new ReflectionClass($extensionClass);
-            $this->assertTrue(
-                $reflection->isInstantiable(),
-                "Extension {$extensionClass} should be instantiable"
-            );
-        }
-    }
-
-    public function testExtensionCount(): void
-    {
-        // We expect exactly 9 extensions: 4 client + 4 supplier + 1 accounting
-        $extensions = [
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAsiento',
-        ];
-
-        $existingCount = 0;
-        foreach ($extensions as $ext) {
-            if (class_exists($ext)) {
-                $existingCount++;
-            }
-        }
-
-        $this->assertEquals(9, $existingCount, 'Should have exactly 9 extension classes');
-    }
-
-    // =========================================================================
-    // EXTENSION CLASSES NAMESPACE TESTS
-    // =========================================================================
-
-    public function testExtensionsHaveCorrectNamespace(): void
-    {
-        $extensions = [
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaCliente',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPresupuestoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditPedidoProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAlbaranProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditFacturaProveedor',
-            'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller\\EditAsiento',
-        ];
-
-        $expectedNamespace = 'FacturaScripts\\Plugins\\QuickCreate\\Extension\\Controller';
-
-        foreach ($extensions as $extensionClass) {
-            $reflection = new ReflectionClass($extensionClass);
-            $this->assertEquals(
-                $expectedNamespace,
-                $reflection->getNamespaceName(),
-                "Extension {$extensionClass} should be in correct namespace"
-            );
-        }
-    }
-
-    // =========================================================================
-    // EDGE CASES
+    // INSTANTIATION TESTS
     // =========================================================================
 
     public function testInitClassCanBeInstantiated(): void
     {
-        // Init should be instantiable (without constructor args)
         $init = new Init();
         $this->assertInstanceOf(Init::class, $init);
-    }
-
-    public function testInitInheritsLoadExtensionMethod(): void
-    {
-        $this->assertTrue(
-            method_exists(Init::class, 'loadExtension'),
-            'Init should inherit loadExtension method from InitClass'
-        );
     }
 }

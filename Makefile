@@ -60,7 +60,7 @@ shell: check-docker
 clean: check-docker
 	docker compose down -v --remove-orphans
 
-# Generate the QuickCreate-N.zip package using git archive (N = integer version)
+# Generate the CommandPalette-N.zip package using git archive (N = integer version)
 package:
 	@if [ -z "$(VERSION)" ]; then \
 		echo "Error: VERSION not specified. Use 'make package VERSION=2'"; \
@@ -72,16 +72,16 @@ package:
 	fi
 	@echo "Updating version to $(VERSION) in facturascripts.ini..."
 	$(SED_INPLACE) 's/^\(version[[:space:]]*=[[:space:]]*\).*$$/\1$(VERSION)/' facturascripts.ini
-	@echo "Creating ZIP archive: QuickCreate-$(VERSION).zip..."
+	@echo "Creating ZIP archive: CommandPalette-$(VERSION).zip..."
 	@mkdir -p dist
-	@git archive --format=zip --prefix=QuickCreate/ HEAD -o dist/QuickCreate-$(VERSION).zip
+	@git archive --format=zip --prefix=CommandPalette/ HEAD -o dist/CommandPalette-$(VERSION).zip
 	@echo "Restoring version in facturascripts.ini..."
 	$(SED_INPLACE) 's/^\(version[[:space:]]*=[[:space:]]*\).*$$/\11/' facturascripts.ini
-	@echo "Package created: dist/QuickCreate-$(VERSION).zip"
+	@echo "Package created: dist/CommandPalette-$(VERSION).zip"
 
 # Enable the plugin in FacturaScripts
 enable-plugin: check-docker
-	@echo "Enabling QuickCreate plugin..."
+	@echo "Enabling CommandPalette plugin..."
 	@docker compose exec facturascripts sh -c "cd /var/www/html && php84 index.php"
 	@echo "Plugin enabled! Access FacturaScripts at http://localhost:8080"
 	@echo "Login with admin/admin"
@@ -101,7 +101,7 @@ lint: check-docker upd
 	@echo "Running PHP CodeSniffer..."
 	@echo ""
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Installing phpcs if needed..." && if [ ! -f vendor/bin/phpcs ]; then php84 /usr/local/bin/composer require --dev squizlabs/php_codesniffer --no-interaction; fi'
-	@docker compose exec facturascripts sh -c 'cd /var/www/html/Plugins/QuickCreate && php84 /var/www/html/vendor/bin/phpcs --colors'
+	@docker compose exec facturascripts sh -c 'cd /var/www/html/Plugins/CommandPalette && php84 /var/www/html/vendor/bin/phpcs --colors'
 	@echo ""
 	@echo "✅ Lint check completed!"
 
@@ -126,7 +126,7 @@ format: check-docker upd
 	@echo "Running PHP CS Fixer..."
 	@echo ""
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Installing php-cs-fixer if needed..." && if [ ! -f vendor/bin/php-cs-fixer ]; then php84 /usr/local/bin/composer require --dev friendsofphp/php-cs-fixer --no-interaction; fi'
-	@docker compose exec facturascripts sh -c 'cd /var/www/html/Plugins/QuickCreate && php84 /var/www/html/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --verbose'
+	@docker compose exec facturascripts sh -c 'cd /var/www/html/Plugins/CommandPalette && php84 /var/www/html/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --verbose'
 	@echo ""
 	@echo "✅ Code formatting completed!"
 
@@ -135,7 +135,7 @@ test: check-docker upd
 	@echo "Running unit tests..."
 	@echo ""
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Installing PHPUnit if needed..." && if [ ! -f vendor/bin/phpunit ]; then php84 /usr/local/bin/composer require --dev phpunit/phpunit --no-interaction; fi'
-	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Setting up test environment..." && mkdir -p Test/Plugins && cp -r Plugins/QuickCreate/Test/main/* Test/Plugins/ 2>/dev/null || true && cp Plugins/QuickCreate/Test/bootstrap.php Test/bootstrap.php 2>/dev/null || true && cp Plugins/QuickCreate/Test/install-plugins.php Test/install-plugins.php 2>/dev/null || true'
+	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Setting up test environment..." && mkdir -p Test/Plugins && cp -r Plugins/CommandPalette/Test/main/* Test/Plugins/ 2>/dev/null || true && cp Plugins/CommandPalette/Test/bootstrap.php Test/bootstrap.php 2>/dev/null || true && cp Plugins/CommandPalette/Test/install-plugins.php Test/install-plugins.php 2>/dev/null || true'
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && test -f Test/Plugins/install-plugins.txt || (echo "❌ Error: No tests found in Test/main/" && exit 1)'
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && echo "→ Installing test plugins..." && php84 Test/install-plugins.php'
 	@docker compose exec facturascripts sh -c 'cd /var/www/html && test -f phpunit-plugins.xml || echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><phpunit bootstrap=\"Test/bootstrap.php\" colors=\"true\"><testsuites><testsuite name=\"PluginTests\"><directory>Test/Plugins</directory></testsuite></testsuites></phpunit>" > phpunit-plugins.xml'
@@ -196,7 +196,7 @@ help:
 	@echo "  rebuild           - Rebuild FacturaScripts dynamic classes"
 	@echo ""
 	@echo "Packaging:"
-	@echo "  package           - Generate QuickCreate-VERSION.zip using git archive"
+	@echo "  package           - Generate CommandPalette-VERSION.zip using git archive"
 	@echo "                      Usage: make package VERSION=2 (integer only)"
 	@echo ""
 	@echo "Other:"

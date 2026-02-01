@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of QuickCreate plugin for FacturaScripts.
+ * This file is part of CommandPalette plugin for FacturaScripts.
  * Copyright (C) 2026 Ernesto Serrano <info@ernesto.es>
  *
  * PHPUnit bootstrap file for testing
@@ -37,8 +37,8 @@ $loader = require FS_FOLDER . '/vendor/autoload.php';
 // Register FacturaScripts Core
 $loader->addPsr4('FacturaScripts\\Core\\', FS_FOLDER . '/Core');
 
-// Register QuickCreate plugin
-$loader->addPsr4('FacturaScripts\\Plugins\\QuickCreate\\', FS_FOLDER . '/Plugins/QuickCreate');
+// Register CommandPalette plugin
+$loader->addPsr4('FacturaScripts\\Plugins\\CommandPalette\\', FS_FOLDER . '/Plugins/CommandPalette');
 
 // Register Dinamic namespace (fallback to Core)
 $loader->addPsr4('FacturaScripts\\Dinamic\\', FS_FOLDER . '/Dinamic');
