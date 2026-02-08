@@ -12,7 +12,7 @@
 
 namespace FacturaScripts\Test\Plugins\CommandPalette;
 
-use FacturaScripts\Core\Base\InitClass;
+use FacturaScripts\Core\Template\InitClass;
 use FacturaScripts\Plugins\CommandPalette\Init;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;

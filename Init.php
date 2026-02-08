@@ -12,7 +12,7 @@
 
 namespace FacturaScripts\Plugins\CommandPalette;
 
-use FacturaScripts\Core\Base\InitClass;
+use FacturaScripts\Core\Template\InitClass;
 
 /**
  * Plugin initialization class.
