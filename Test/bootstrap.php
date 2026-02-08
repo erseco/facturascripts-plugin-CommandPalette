@@ -8,7 +8,15 @@
  */
 
 // Define FacturaScripts folder
-define('FS_FOLDER', __DIR__ . '/..');
+// When running in Docker/CI, tests are copied to /var/www/html/Test/Plugins/
+// so we need to go up two levels to reach the FacturaScripts root
+if (file_exists(__DIR__ . '/../../Core')) {
+    // Running in FacturaScripts environment (CI/Docker)
+    define('FS_FOLDER', __DIR__ . '/../..');
+} else {
+    // Running in plugin development environment
+    define('FS_FOLDER', __DIR__ . '/..');
+}
 
 // Load composer autoloader
 require_once FS_FOLDER . '/vendor/autoload.php';
@@ -30,15 +38,3 @@ if (!defined('FS_TIMEZONE')) {
 if (!defined('FS_ROUTE')) {
     define('FS_ROUTE', '');
 }
-
-// Register plugin namespaces with the autoloader
-$loader = require FS_FOLDER . '/vendor/autoload.php';
-
-// Register FacturaScripts Core
-$loader->addPsr4('FacturaScripts\\Core\\', FS_FOLDER . '/Core');
-
-// Register CommandPalette plugin
-$loader->addPsr4('FacturaScripts\\Plugins\\CommandPalette\\', FS_FOLDER . '/Plugins/CommandPalette');
-
-// Register Dinamic namespace (fallback to Core)
-$loader->addPsr4('FacturaScripts\\Dinamic\\', FS_FOLDER . '/Dinamic');

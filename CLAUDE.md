@@ -71,7 +71,7 @@ namespace FacturaScripts\Plugins\CommandPalette;
 
 namespace FacturaScripts\Plugins\CommandPalette;
 
-use FacturaScripts\Core\Template\InitClass;
+use FacturaScripts\Core\Base\InitClass;
 
 /**
  * Plugin initialization class.
