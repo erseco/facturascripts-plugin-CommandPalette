@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "CommandPalette",
+    "author": "erseco",
+    "description": "Run CommandPalette in FacturaScripts Playground"
+  },
+  "debug": {
+    "enabled": true
+  },
+  "landingPage": "/AdminPlugins",
+  "siteOptions": {
+    "title": "FacturaScripts Playground Demo",
+    "locale": "es_ES",
+    "timezone": "Europe/Madrid"
+  },
+  "login": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "plugins": [
+    "https://github.com/erseco/facturascripts-plugin-CommandPalette/archive/refs/heads/main.zip"
+  ],
+  "seed": {
+    "customers": [
+      {
+        "codcliente": "CDEMO1",
+        "nombre": "Cliente Demo",
+        "cifnif": "12345678Z",
+        "email": "cliente@example.com",
+        "telefono1": "+34910000001",
+        "direccion": "Calle Demo 1",
+        "ciudad": "Madrid",
+        "provincia": "Madrid",
+        "codpais": "ESP"
+      }
+    ],
+    "suppliers": [
+      {
+        "codproveedor": "PDEMO1",
+        "nombre": "Proveedor Demo",
+        "cifnif": "B12345678",
+        "email": "proveedor@example.com",
+        "telefono1": "+34910000002"
+      }
+    ],
+    "products": [
+      {
+        "referencia": "SKU-DEMO-001",
+        "descripcion": "Producto demo",
+        "precio": 19.95,
+        "stockfis": 25
+      }
+    ]
+  }
+}
