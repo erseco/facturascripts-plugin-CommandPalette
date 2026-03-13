@@ -13,27 +13,26 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Post or update playground preview comment
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require('fs');
             const marker = '<!-- facturascripts-playground-preview -->';
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const headRef = context.payload.pull_request.head.ref;
             const prNumber = context.payload.pull_request.number;
 
-            // Build the blueprint for this PR branch
-            const blueprint = {
-              meta: {
-                title: 'CommandPalette',
-                author: owner,
-                description: `Preview of PR #${prNumber} in FacturaScripts Playground`
-              },
-              plugins: [
-                `https://github.com/${owner}/${repo}/archive/refs/heads/${headRef}.zip`
-              ]
-            };
+            // Read the root blueprint and replace the plugin URL with the PR branch ZIP
+            const blueprint = JSON.parse(fs.readFileSync('blueprint.json', 'utf8'));
+            const prZipUrl = `https://github.com/${owner}/${repo}/archive/refs/heads/${headRef}.zip`;
+            blueprint.plugins = blueprint.plugins.map(url =>
+              url.includes(`${owner}/${repo}`) ? prZipUrl : url
+            );
 
             // Encode as base64url
             function toBase64url(str) {
