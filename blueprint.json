@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "title": "CommandPalette",
+    "author": "erseco",
+    "description": "Run CommandPalette in FacturaScripts Playground"
+  },
+  "plugins": [
+    "https://github.com/erseco/facturascripts-plugin-CommandPalette/archive/refs/heads/main.zip"
+  ]
+}

@@ -1,5 +1,10 @@
 # CommandPalette para FacturaScripts
 
+<a href="https://erseco.github.io/facturascripts-playground/?blueprint=https%3A%2F%2Fraw.githubusercontent.com%2Ferseco%2Ffacturascripts-plugin-CommandPalette%2Frefs%2Fheads%2Fmain%2Fblueprint.json">
+  <img src="https://raw.githubusercontent.com/erseco/facturascripts-playground/refs/heads/main/ogimage.png" alt="Try CommandPalette in your browser" width="220">
+</a><br>
+<small><a href="https://erseco.github.io/facturascripts-playground/?blueprint=https%3A%2F%2Fraw.githubusercontent.com%2Ferseco%2Ffacturascripts-plugin-CommandPalette%2Frefs%2Fheads%2Fmain%2Fblueprint.json">Try in your browser</a></small>
+
 Paleta de comandos moderna para FacturaScripts, inspirada en VS Code, GitHub y Cloudflare. Navega rápidamente por toda la aplicación usando el teclado.
 
 <p align="center">
