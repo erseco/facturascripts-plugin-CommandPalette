@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="Test/bootstrap.php" colors="true" failOnWarning="true">
+    <testsuites>
+        <testsuite name="CommandPalette"><directory>Test/Plugins</directory></testsuite>
+    </testsuites>
+    <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+        <include>
+            <file>Plugins/CommandPalette/Init.php</file>
+        </include>
+    </coverage>
+</phpunit>

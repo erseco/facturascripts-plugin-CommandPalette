@@ -19,6 +19,15 @@ use ReflectionClass;
 
 class InitTest extends TestCase
 {
+    public function testLifecycleHooksCompleteWithoutOutput(): void
+    {
+        $this->expectOutputString('');
+        $init = new Init();
+        $init->init();
+        $init->update();
+        $init->uninstall();
+    }
+
     private ReflectionClass $reflection;
 
     protected function setUp(): void

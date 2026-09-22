@@ -39,4 +39,5 @@
     <!-- Show progress and use colors -->
     <arg value="ps"/>
     <arg name="colors"/>
+    <arg name="extensions" value="php"/>
 </ruleset>
