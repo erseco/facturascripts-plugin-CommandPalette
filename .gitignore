@@ -49,4 +49,5 @@ docker-compose.override.yml
 facturascripts/
 
 /coverage.xml
+/lcov.info
 /.phpunit.cache/
